@@ -5,7 +5,7 @@ interface IInput {
   label: string;
 }
 
-const Input: React.FC = () => {
-  return <Box></Box>;
+const Input: React.FC<IInput> = ({ label }) => {
+  return <Box>{label && <label htmlFor=""></label>}</Box>;
 };
 export default Input;

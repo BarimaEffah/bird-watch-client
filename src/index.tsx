@@ -4,6 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
+import UnsplashClient from "./utils/unsplash";
+
+export const unsplash = new UnsplashClient();
 
 ReactDOM.render(
   <React.StrictMode>
