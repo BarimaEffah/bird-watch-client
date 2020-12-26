@@ -1,25 +1,12 @@
 import { Box, Button, Flex, Grid, Image, Input, Stack } from "@chakra-ui/react";
 import React, { CSSProperties } from "react";
-import { Helmet } from "react-helmet";
-import { unsplash } from "src";
+import { Link } from "react-router-dom";
 import logo from "src/assets/img/logo.svg";
+import CustomHead from "src/components/customHead/CustomHead";
+import useUnsplash from "src/hooks/useUnsplash";
 
-const Register: React.FC = () => {
-  const [backgroundImage, setBackgroundImage] = React.useState<null | string>(
-    ""
-  );
-  React.useEffect(() => {
-    if (localStorage.getItem("bgImage")) {
-      setBackgroundImage(localStorage.getItem("bgImage"));
-      return;
-    }
-    unsplash
-      .getNewRandomImage()
-      .then((img) => setBackgroundImage(img))
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+const Login: React.FC = () => {
+  const img = useUnsplash();
 
   const filterStyles: CSSProperties = {
     height: "100vh",
@@ -30,16 +17,7 @@ const Register: React.FC = () => {
   return (
     <React.Fragment>
       <div style={filterStyles} className="filter"></div>
-      <Helmet>
-        <style>{`body{
-            background-image:url(${backgroundImage}});
-            background-color: #722CE6;
-            background-size:cover;
-            height:100vh;
-            background-position:50% 50%;
-            transition: all .300ms
-        }`}</style>
-      </Helmet>
+      <CustomHead bgImage={img.random}></CustomHead>
       <Flex px={12} py={8} alignItems="center" justifyContent="space-between">
         <Image width={70} src={logo}></Image>
         <Stack isInline spacing="12px">
@@ -71,9 +49,11 @@ const Register: React.FC = () => {
             <Box fontSize="28px" color="white" as="h1">
               See what’s happening in the world right now
             </Box>
-            <Button size="md" width="50%">
-              Sign up
-            </Button>
+            <Link to="/register">
+              <Button size="md" width="50%">
+                Sign up
+              </Button>
+            </Link>
           </Stack>
         </Flex>
       </Grid>
@@ -81,4 +61,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default Login;
